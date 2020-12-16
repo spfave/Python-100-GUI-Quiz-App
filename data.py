@@ -1,6 +1,7 @@
 import requests
 
 
+# Functions
 def generate_quiz_questions(num_questions=10, question_type="boolean"):
     """  """
     api_open_trivia = "https://opentdb.com/api.php"
@@ -16,4 +17,5 @@ def generate_quiz_questions(num_questions=10, question_type="boolean"):
     return question_data
 
 
+# Main
 question_data = generate_quiz_questions()
