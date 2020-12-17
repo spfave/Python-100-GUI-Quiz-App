@@ -14,16 +14,26 @@ class QuizInterface(tk.Tk):
         """  """
         super().__init__()
         self.title("Quizzler")
-        self.config(padx=50, pady=50, background=THEME_COLOR)
+        self.config(padx=25, pady=50, background=THEME_COLOR)
         self.init_UI()
         self.mainloop()
 
     def init_UI(self):
+        self.score = Score(self)
+        self.score.grid(row=0, column=1)
         self.q_card = QuestionCard(self)
         self.q_card.grid(row=1, column=0, columnspan=2)
 
 
-# todo: create question card class
+class Score(tk.Label):
+    """  """
+
+    def __init__(self, parent):
+        """  """
+        super().__init__(parent)
+        self.config(text=f"Score: 0")
+
+
 class QuestionCard(tk.Canvas):
     """  """
 
@@ -31,7 +41,8 @@ class QuestionCard(tk.Canvas):
         """  """
         super().__init__(parent)
         self.config(width=200, height=200, background="white")
-        self.question = self.create_text(100, 100, text="Test Question")
+        self.question = self.create_text(
+            100, 100, text="Test Question", width=180)
 
 
 # todo: create button class
