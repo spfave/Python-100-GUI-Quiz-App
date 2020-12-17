@@ -60,13 +60,11 @@ class QuizInterface(tk.Tk):
         answer = self.quiz.check_answer("true")
         self.q_card.indicate_answer(answer)
         self.after(500, self.get_next_question)
-        # self.get_next_question()
 
     def click_false(self):
         answer = self.quiz.check_answer("false")
         self.q_card.indicate_answer(answer)
         self.after(500, self.get_next_question)
-        # self.get_next_question()
 
 
 class Score(tk.Label):
