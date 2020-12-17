@@ -9,7 +9,6 @@ s_font = ("Arial", 14, "bold")
 
 
 # Classes
-# todo: create quiz interface class
 class QuizInterface(tk.Tk):
     """  """
 
@@ -28,12 +27,12 @@ class QuizInterface(tk.Tk):
         self.q_card = QuestionCard(self)
         self.q_card.grid(row=1, column=0, columnspan=2, pady=10)
 
-        self.image_true = tk.PhotoImage(file="images/true.png")
-        self.button_true = Button(self, image=self.image_true)
+        self._image_true = tk.PhotoImage(file="images/true.png")
+        self.button_true = Button(self, image=self._image_true)
         self.button_true.grid(row=2, column=0, pady=10)
 
-        self.image_false = tk.PhotoImage(file="images/false.png")
-        self.button_false = Button(self, image=self.image_false)
+        self._image_false = tk.PhotoImage(file="images/false.png")
+        self.button_false = Button(self, image=self._image_false)
         self.button_false.grid(row=2, column=1, pady=10)
 
 
@@ -59,7 +58,9 @@ class QuestionCard(tk.Canvas):
         super().__init__(parent, *args, **kwargs)
         self.config(width=300, height=250, background="white")
         self.question = self.create_text(
-            150, 125, text="Test Question", font=q_font, width=180)
+            150, 125,
+            text="Test Question", font=q_font, fill=THEME_COLOR,
+            width=180)
 
 
 class Button(tk.Button):
