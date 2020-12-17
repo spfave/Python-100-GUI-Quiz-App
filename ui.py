@@ -1,9 +1,11 @@
 import tkinter as tk
+from tkinter import font
 
 
 # Constants
 THEME_COLOR = "#375362"
 q_font = ("Arial", 20)
+s_font = ("Arial", 14, "bold")
 
 
 # Classes
@@ -21,18 +23,18 @@ class QuizInterface(tk.Tk):
 
     def init_UI(self):
         self.score = Score(self)
-        self.score.grid(row=0, column=1)
+        self.score.grid(row=0, column=0, columnspan=2, pady=10)
 
         self.q_card = QuestionCard(self)
-        self.q_card.grid(row=1, column=0, columnspan=2)
+        self.q_card.grid(row=1, column=0, columnspan=2, pady=10)
 
         self.image_true = tk.PhotoImage(file="images/true.png")
         self.button_true = Button(self, image=self.image_true)
-        self.button_true.grid(row=2, column=0)
+        self.button_true.grid(row=2, column=0, pady=10)
 
         self.image_false = tk.PhotoImage(file="images/false.png")
         self.button_false = Button(self, image=self.image_false)
-        self.button_false.grid(row=2, column=1)
+        self.button_false.grid(row=2, column=1, pady=10)
 
 
 class Score(tk.Label):
@@ -43,8 +45,9 @@ class Score(tk.Label):
         super().__init__(parent, *args, **kwargs)
         self.config(
             text=f"Score: 0",
+            font=s_font,
             background=THEME_COLOR,
-            foreground="white"
+            foreground="white",
         )
 
 
@@ -54,9 +57,9 @@ class QuestionCard(tk.Canvas):
     def __init__(self, parent, *args, **kwargs):
         """  """
         super().__init__(parent, *args, **kwargs)
-        self.config(width=250, height=200, background="white")
+        self.config(width=300, height=250, background="white")
         self.question = self.create_text(
-            100, 100, text="Test Question", font=q_font, width=180)
+            150, 125, text="Test Question", font=q_font, width=180)
 
 
 class Button(tk.Button):
@@ -67,5 +70,6 @@ class Button(tk.Button):
         super().__init__(parent, *args, **kwargs)
         self.config(
             relief="flat",
-            highlightthickness=0
+            bd=1,
+            highlightthickness=0,
         )
