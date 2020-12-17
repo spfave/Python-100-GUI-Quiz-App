@@ -12,8 +12,10 @@ s_font = ("Arial", 14, "bold")
 class QuizInterface(tk.Tk):
     """  """
 
-    def __init__(self):
+    def __init__(self, quiz_brain):
         """  """
+        self.quiz = quiz_brain
+
         super().__init__()
         self.title("Quizzler")
         self.config(padx=20, pady=20, background=THEME_COLOR)
