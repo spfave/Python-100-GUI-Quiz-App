@@ -17,6 +17,7 @@ class QuizInterface(tk.Tk):
     def __init__(self, quiz_brain: QuizBrain):
         """  """
         self.quiz = quiz_brain
+        self.timer = None
 
         super().__init__()
         self.title("Quizzler")
@@ -48,10 +49,16 @@ class QuizInterface(tk.Tk):
         self.q_card.refresh(new_question)
 
     def click_true(self):
-        self.quiz.check_answer("true")
+        answer = self.quiz.check_answer("true")
+        self.q_card.indicate_answer(answer)
+        self.after(500, self.get_next_question)
+        # self.get_next_question()
 
     def click_false(self):
-        self.quiz.check_answer("false")
+        answer = self.quiz.check_answer("false")
+        self.q_card.indicate_answer(answer)
+        self.after(500, self.get_next_question)
+        # self.get_next_question()
 
 
 class Score(tk.Label):
@@ -82,8 +89,15 @@ class QuestionCard(tk.Canvas):
         )
 
     def refresh(self, q_text):
+        self.config(background="white")
         self.itemconfig(self.question, text=q_text)
         pass
+
+    def indicate_answer(self, answer_right):
+        if answer_right:
+            self.config(background="green")
+        else:
+            self.config(background="red")
 
 
 class Button(tk.Button):
