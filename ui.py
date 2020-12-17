@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import font
+from quiz_brain import QuizBrain
 
 
 # Constants
@@ -12,7 +12,7 @@ s_font = ("Arial", 14, "bold")
 class QuizInterface(tk.Tk):
     """  """
 
-    def __init__(self, quiz_brain):
+    def __init__(self, quiz_brain: QuizBrain):
         """  """
         self.quiz = quiz_brain
 
@@ -36,6 +36,10 @@ class QuizInterface(tk.Tk):
         self._image_false = tk.PhotoImage(file="images/false.png")
         self.button_false = Button(self, image=self._image_false)
         self.button_false.grid(row=2, column=1, pady=10)
+
+    def get_next_question(self):
+        new_question = self.quiz.next_question()
+        self.q_card.refresh(new_question)
 
 
 class Score(tk.Label):
@@ -62,7 +66,12 @@ class QuestionCard(tk.Canvas):
         self.question = self.create_text(
             150, 125,
             text="Test Question", font=q_font, fill=THEME_COLOR,
-            width=180)
+            width=180,
+        )
+
+    def refresh(self, q_text):
+        self.itemconfig(self.question, text=q_text)
+        pass
 
 
 class Button(tk.Button):
