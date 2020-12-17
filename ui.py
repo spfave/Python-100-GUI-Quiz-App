@@ -4,7 +4,7 @@ from quiz_brain import QuizBrain
 
 # Constants
 THEME_COLOR = "#375362"
-q_font = ("Arial", 20)
+q_font = ("Arial", 20, "italic")
 s_font = ("Arial", 14, "bold")
 
 
@@ -20,6 +20,8 @@ class QuizInterface(tk.Tk):
         self.title("Quizzler")
         self.config(padx=20, pady=20, background=THEME_COLOR)
         self.init_UI()
+        self.get_next_question()
+
         self.mainloop()
 
     def init_UI(self):
@@ -66,7 +68,7 @@ class QuestionCard(tk.Canvas):
         self.question = self.create_text(
             150, 125,
             text="Test Question", font=q_font, fill=THEME_COLOR,
-            width=180,
+            width=280,
         )
 
     def refresh(self, q_text):
