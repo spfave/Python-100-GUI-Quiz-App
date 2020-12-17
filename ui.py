@@ -45,9 +45,16 @@ class QuizInterface(tk.Tk):
         self.button_false.grid(row=2, column=1, pady=10)
 
     def get_next_question(self):
-        self.score.refresh(self.quiz.score)
-        new_question = self.quiz.next_question()
-        self.q_card.refresh(new_question)
+        if self.quiz.still_has_questions():
+            self.score.refresh(self.quiz.score)
+            new_question = self.quiz.next_question()
+            self.q_card.refresh(new_question)
+        else:
+            self.q_card.config(background="white")
+            self.q_card.itemconfig(self.q_card.question,
+                                   text="You've completed the quiz")
+            self.button_true.disable()
+            self.button_false.disable()
 
     def click_true(self):
         answer = self.quiz.check_answer("true")
@@ -95,7 +102,6 @@ class QuestionCard(tk.Canvas):
     def refresh(self, q_text):
         self.config(background="white")
         self.itemconfig(self.question, text=q_text)
-        pass
 
     def indicate_answer(self, answer_right):
         if answer_right:
@@ -115,3 +121,6 @@ class Button(tk.Button):
             bd=1,
             highlightthickness=0,
         )
+
+    def disable(self):
+        self.config(state="disable")
