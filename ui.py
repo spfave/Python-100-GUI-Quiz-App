@@ -45,6 +45,7 @@ class QuizInterface(tk.Tk):
         self.button_false.grid(row=2, column=1, pady=10)
 
     def get_next_question(self):
+        self.enable_buttons()
         if self.quiz.still_has_questions():
             self.score.refresh(self.quiz.score)
             new_question = self.quiz.next_question()
@@ -53,18 +54,28 @@ class QuizInterface(tk.Tk):
             self.q_card.config(background="white")
             self.q_card.itemconfig(self.q_card.question,
                                    text="You've completed the quiz")
-            self.button_true.disable()
-            self.button_false.disable()
+            self.disable_buttons()
 
     def click_true(self):
         answer = self.quiz.check_answer("true")
-        self.q_card.indicate_answer(answer)
-        self.after(500, self.get_next_question)
+        self.provide_feedback(answer)
 
     def click_false(self):
         answer = self.quiz.check_answer("false")
+        self.provide_feedback(answer)
+
+    def provide_feedback(self, answer):
         self.q_card.indicate_answer(answer)
+        self.disable_buttons()
         self.after(500, self.get_next_question)
+
+    def enable_buttons(self):
+        self.button_true.enable()
+        self.button_false.enable()
+
+    def disable_buttons(self):
+        self.button_true.disable()
+        self.button_false.disable()
 
 
 class Score(tk.Label):
@@ -119,6 +130,9 @@ class Button(tk.Button):
             bd=1,
             highlightthickness=0,
         )
+
+    def enable(self):
+        self.config(state="normal")
 
     def disable(self):
         self.config(state="disable")
