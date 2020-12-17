@@ -34,16 +34,24 @@ class QuizInterface(tk.Tk):
         self.q_card.grid(row=1, column=0, columnspan=2, pady=10)
 
         self._image_true = tk.PhotoImage(file="images/true.png")
-        self.button_true = Button(self, image=self._image_true)
+        self.button_true = Button(
+            self, image=self._image_true, command=self.click_true)
         self.button_true.grid(row=2, column=0, pady=10)
 
         self._image_false = tk.PhotoImage(file="images/false.png")
-        self.button_false = Button(self, image=self._image_false)
+        self.button_false = Button(
+            self, image=self._image_false, command=self.click_false)
         self.button_false.grid(row=2, column=1, pady=10)
 
     def get_next_question(self):
         new_question = self.quiz.next_question()
         self.q_card.refresh(new_question)
+
+    def click_true(self):
+        self.quiz.check_answer("true")
+
+    def click_false(self):
+        self.quiz.check_answer("false")
 
 
 class Score(tk.Label):
