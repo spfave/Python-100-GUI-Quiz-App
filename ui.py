@@ -45,6 +45,7 @@ class QuizInterface(tk.Tk):
         self.button_false.grid(row=2, column=1, pady=10)
 
     def get_next_question(self):
+        self.score.refresh(self.quiz.score)
         new_question = self.quiz.next_question()
         self.q_card.refresh(new_question)
 
@@ -73,6 +74,9 @@ class Score(tk.Label):
             background=THEME_COLOR,
             foreground="white",
         )
+
+    def refresh(self, score):
+        self.config(text=f"Score {score}")
 
 
 class QuestionCard(tk.Canvas):
