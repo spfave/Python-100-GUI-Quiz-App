@@ -12,6 +12,8 @@ s_font = ("Arial", 14, "bold")
 class QuizInterface(tk.Tk):
     """  """
 
+    # use ':' after variable name to define variable type
+    # for func/method can use '->'after func declaration to define variable return type
     def __init__(self, quiz_brain: QuizBrain):
         """  """
         self.quiz = quiz_brain
